@@ -10,6 +10,8 @@
 #include "windowrenderer.hpp"
 
 namespace cpplab {
+    static const char* VERSION = "v0.1.0";
+
     //todo:
     // high priority:
     // add keyboard events: DONE
