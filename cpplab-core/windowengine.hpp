@@ -10,15 +10,14 @@
 #include "windowrenderer.hpp"
 
 namespace cpplab {
-    static const char* VERSION = "v0.1.0";
+    static const char* VERSION = "v0.1.1";
 
-    //todo:
+    // todo:
     // high priority:
-    // add keyboard events: DONE
-    // make some sort of reusable config struct for elements: DONE
-    // image rendering DONE
-    // set window icon and title at runtime
-    // debug window
+    // set window icon and title at runtime <- IN PROGRESS
+    // debug window <- IN PROGRESS
+    // 
+    // next version::
     // 
     // low priority:
     // improve render efficiency
@@ -28,6 +27,12 @@ namespace cpplab {
     // multithreadable: task based? or std::async and promises + futures
     // development toolkit: seperate app that helps with design
     // script language?
+    // 
+    // done:
+    // add keyboard events: DONE
+    // make some sort of reusable config struct for elements: DONE
+    // image rendering DONE
+
 
     class WindowEngine;
 
