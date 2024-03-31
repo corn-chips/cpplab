@@ -18,7 +18,6 @@ class StartApp : public ICpplabApp {
 			.setBorderColor(Color(0.0f))
 			.setBorderWidth(5.f)
 			.setRoundedEdgeRadius(5.f)
-			.setTextMarginPx(5.f)
 			.setText(L"Example")
 			.setTextMarginPx(10.f)
 			.setTextHorizontalAlignment(HAlign::CENTER)
