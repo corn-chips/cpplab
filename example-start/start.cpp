@@ -69,5 +69,5 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		MessageBoxA(NULL, err.what(), "Unexpected error!", NULL);
 	}
 
-	return 0;
+	return 0;-
 }
