@@ -4,32 +4,75 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
 #include <map>
 #include <vector>
 
+
+//csv format
+// itemA,itemB,itemC,itemD  <<  label line
+// abcde,efghi,jklmn,opqrs  <<  data lines
+// tuvwx,yzabc,defgh,ijklm
+// nopqr,stuvw,xyzab,cdefg
+
+//
+// array[0] = 1;
+// array[1] = 1;
+// array[2] = 1;
+// array[3] = 1;
+// 
+// std::map<std::string, int>
+// map["asdfasdf"] = 1
+//
+
 std::map<std::string, std::vector<std::string>> parseCSV(const std::string& filename) {
 
-    
-    std::ifstream csv(filename);
-    if (!csv.is_open()) {
-        throw std::runtime_error("csv not found!");
+    std::ifstream inputFile(filename);
+    if (!inputFile.is_open()) {
+        std::cerr << "ERROR OPENING FILE!" << std::endl;
+        throw std::runtime_error("");
     }
 
+    //get first line
+    std::string line;
+    std::getline(inputFile, line);
+
+    //split up the line into each category
+    auto parseLine = [](const std::string& line) -> std::vector<std::string> {
+        //itemA
+        // itemA,itemB,itemC,itemD
+
+        std::vector<std::string> itemList;
+
+        int s = 0;
+        bool stringstate = false;
+        for (int i = 0; i < line.length(); i++) {
+            if (line[i] == '\"') {
+                stringstate = !stringstate;
+            }
+            if (stringstate) continue;
+            if (line[i] == ',' || line[i] == '\n') {
+                itemList.push_back(line.substr(s, i - s));
+                s = i+1;
+            }
+        }
+        return itemList;
+    };
     
+    auto a = parseLine(line);
+
+    std::map<std::string, std::vector<std::string>> csv;
+    for (const std::string& label : a) {
+        csv[label] = std::vector<std::string>();
+    }
+
+    while (std::getline(inputFile, line)) {
+        auto b = parseLine(line);
+        int b_idx = 0;
+        for (const std::string& label : a) {
+            csv[label].push_back(b[b_idx]);
+            b_idx++;
+        }
+    }
+    return csv;
 }
-
-int main()
-{
-    
-}
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
