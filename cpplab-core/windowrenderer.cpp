@@ -102,6 +102,7 @@ namespace cpplab {
             nodeLoaded.insert({ {p_n, false } });
         }
 
+
         //traverse root node
         //use recursive function (this is a stack destroyer lol)
         std::function<void(ElementNode*)> updateNode = [this, &updateNode, &nodeLoaded](ElementNode* currentNode) {
@@ -143,12 +144,13 @@ namespace cpplab {
                 newNode->data = new NodeRenderData();
             }
             newNode->data->elementNode = currentNode;
+            newNode->data->nodeDepth = currentNode->getDepth();
 
             /* Locate the node before the point of insertion */
             LinkedListNode<NodeRenderData*>* currentlyIndexed = &persistentDepthSortedNodes;
             while (currentlyIndexed->nextNode != nullptr
-                && currentlyIndexed->nextNode->data->elementNode->getDepth()
-                < newNode->data->elementNode->getDepth()) {
+                && currentlyIndexed->nextNode->data->nodeDepth // calling deleted nodes for depth!
+                < newNode->data->nodeDepth) {
                 currentlyIndexed = currentlyIndexed->nextNode;
             }
             newNode->nextNode = currentlyIndexed->nextNode;
