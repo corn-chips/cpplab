@@ -59,17 +59,17 @@ std::map<std::string, std::vector<std::string>> parseCSV(const std::string& file
         return itemList;
     };
     
-    auto a = parseLine(line);
+    auto labelLine = parseLine(line);
 
     std::map<std::string, std::vector<std::string>> csv;
-    for (const std::string& label : a) {
+    for (const std::string& label : labelLine) {
         csv[label] = std::vector<std::string>();
     }
 
     while (std::getline(inputFile, line)) {
         auto b = parseLine(line);
         int b_idx = 0;
-        for (const std::string& label : a) {
+        for (const std::string& label : labelLine) {
             csv[label].push_back(b[b_idx]);
             b_idx++;
         }

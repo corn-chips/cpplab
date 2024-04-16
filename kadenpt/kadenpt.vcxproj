@@ -138,6 +138,9 @@
     <ProjectReference Include="..\cpplab-core\cpplab-core.vcxproj">
       <Project>{a96b007d-35c7-41d4-9bb3-39761218ebb1}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\csv-reader\csv-reader.vcxproj">
+      <Project>{cb2a6f94-9ed8-4e2c-aaa8-c708de2f1f9a}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="countryflagquiz.hpp" />
