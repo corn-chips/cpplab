@@ -27,6 +27,7 @@ namespace cpplab {
 
     struct NodeRenderData {
         ElementNode* elementNode;
+        float nodeDepth;
     };
     struct TextElementNodeRenderData : public NodeRenderData {
         //store shape and text renderer to reuse
