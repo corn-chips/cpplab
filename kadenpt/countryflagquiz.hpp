@@ -4,10 +4,20 @@ using namespace cpplab;
 
 class CountryFlagQuizApp : public cpplab::ICpplabApp {
 private:
+    WindowEngine* eng;
+
+    TextElementConfiguration txBoxConf;
+
+    cpplab::ElementNode* startScreen;
+    cpplab::ElementNode* quizScreen;
+    cpplab::ElementNode* resultScreen;
+
+    void BuildScreens();
 
 public:
     // Inherited via ICpplabApp
     void OnWindowEntry(WindowEngine* engine) override;
+
 
     void OnWindowExit() override;
 

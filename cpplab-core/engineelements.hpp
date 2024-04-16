@@ -6,6 +6,7 @@
 #include <atomic>
 #include <sstream>
 #include <exception>
+#include <cmath>
 
 #include "fonts.hpp"
 
@@ -48,6 +49,12 @@ namespace cpplab {
             this->r = r;
             this->g = g;
             this->b = b;
+            this->a = 1.0f;
+        }
+        Color(unsigned int r, unsigned int g, unsigned int b) {
+            this->r = std::fminf(r / 255.f, 1.0f);
+            this->g = std::fminf(g / 255.f, 1.0f);
+            this->b = std::fminf(b / 255.f, 1.0f);
             this->a = 1.0f;
         }
         Color(float v) {
@@ -229,10 +236,26 @@ namespace cpplab {
             this->hidden = false;
             this->modified = true;
         }
+        virtual void showAllChildren() {
+            std::lock_guard<std::mutex> guard(this->elementLock);
+            this->hidden = false;
+            this->modified = true;
+            for (auto& elmt : this->childNodes) {
+                elmt.second->showAllChildren();
+            }
+        }
         virtual void hide() {
             std::lock_guard<std::mutex> guard(this->elementLock);
             this->hidden = true;
             this->modified = true;
+        }
+        virtual void hideAllChildren() {
+            std::lock_guard<std::mutex> guard(this->elementLock);
+            this->hidden = true;
+            this->modified = true;
+            for (auto& elmt : this->childNodes) {
+                elmt.second->hideAllChildren();
+            }
         }
         virtual bool isHidden() {
             std::lock_guard<std::mutex> guard(this->elementLock);

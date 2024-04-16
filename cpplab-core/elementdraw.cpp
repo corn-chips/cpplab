@@ -28,15 +28,17 @@ namespace cpplab {
     }
 
     void WindowD2DRenderer::PerformElementDraw(NodeRenderData* element) {
+        if (element->elementNode->isHidden()) return;
         if (element->elementNode->getNodeType() == NodeType::TEXT_AREA) {
             TextElementNodeRenderData* elementData = static_cast<TextElementNodeRenderData*>(element);
             TextElement* textElement = (TextElement*)elementData->elementNode;
             if (textElement->modified) {
                 //build shapes
+                float roundedgeclamp = fminf(textElement->getDimensions().x / 2.f, textElement->getDimensions().y / 2.f);
                 elementData->boxShape = D2D1::RoundedRect(
                     D2D1::RectF(0.0f, 0.0f, scaleDPI(textElement->getDimensions().x), scaleDPI(textElement->getDimensions().y)),
-                    scaleDPI(textElement->getRoundedEdge()),
-                    scaleDPI(textElement->getRoundedEdge())
+                    scaleDPI(fminf(textElement->getRoundedEdge(), roundedgeclamp)),
+                    scaleDPI(fminf(textElement->getRoundedEdge(), roundedgeclamp))
                 );
 
                 //build text

@@ -2,10 +2,23 @@
 
 namespace cpplab {
 	enum class FontStyle {
-		Arial, Calibri
+		Arial, Calibri, Trebuchet
 	};
 	static const wchar_t* FontStyleToString(FontStyle style) {
-		if (style == FontStyle::Arial) return L"Arial";
-		if (style == FontStyle::Calibri) return L"Calibri";
+		switch (style)
+		{
+		case cpplab::FontStyle::Arial:
+			return L"Arial";
+			break;
+		case cpplab::FontStyle::Calibri:
+			return L"Calibri";
+			break;
+		case cpplab::FontStyle::Trebuchet:
+			return L"Trebuchet";
+			break;
+		default:
+			return L"Arial"; //default font arial if switch misses
+			break;
+		}
 	}
 }

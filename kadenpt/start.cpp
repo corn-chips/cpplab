@@ -14,7 +14,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     const wchar_t* windowName = L"Country Flag Quiz";
 
     WindowEngineConfiguration conf;
-    conf.Dimensions.initialWindowSize = vec2(320.f, 450.f);
+    conf.Dimensions.initialWindowSize = vec2(335.f, 480.f);
     conf.AdvancedProperties.WindowCreation.resizable = false;
 
     WindowEngine we(hInstance, nCmdShow, windowName, conf);
